@@ -175,18 +175,17 @@ io.on("connection", (socket) => {
     // socket.join(user.room)
     if (!io.sockets.adapter.rooms["mainmenu"]) {
       socket.join(user.room);
+      // console.log(user has joined room, updated amount of participants)
+      console.log(`${user.name} has joined room ${user.room}`);
+      console.log(`${handRaisers.length} users connected`);
+      console.log(
+        `${getNumberOfhandRaisersByRoom(user.room).length} user(s) in room ${
+          user.room
+        }`
+      );
     } else {
       console.log('Join "mainmenu" room denied - socket already joined');
     }
-
-    // console.log(user has joined room, updated amount of participants)
-    console.log(`${user.name} has joined room ${user.room}`);
-    console.log(`${handRaisers.length} users connected`);
-    console.log(
-      `${getNumberOfhandRaisersByRoom(user.room).length} user(s) in room ${
-        user.room
-      }`
-    );
 
     io.to("mainmenu").emit("handRaiseInfo", {
       handRaiseData: getHandRaiseInfo(),
